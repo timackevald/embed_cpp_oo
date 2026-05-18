@@ -64,6 +64,7 @@ class Led
 		/* API */
 		void set_state(LedState state);
 		LedState get_state() const;
+		LedColor get_color() const;
 };
 
 /* LED Memory bank class */

@@ -33,6 +33,7 @@ int main(void)
     while (1)
     {
         LedState state = led->get_state();
+        LedColor color = led->get_color();
 
         if (state == LedState::On)
         {
@@ -46,7 +47,7 @@ int main(void)
         /* Cast enum class to uint8_t for printf
          * enum class has no implici integer conversion so static_cast is required.*/
         printf("LED at idx 0 — color: %u  state: %u\r\n",
-               static_cast<uint8_t>(led->get_state()),
+               static_cast<uint8_t>(color),
                static_cast<uint8_t>(state));
 	    HAL_Delay(1000);
     }

@@ -88,6 +88,11 @@ LedState Led::get_state() const
 	return state_;
 }
 
+LedColor Led::get_color() const
+{
+	return color_;
+}
+
 /* LED Membank constructor
  * slots_used_ initialised to 0 via initialiser list.
  * membank_[] array is default-constructed
