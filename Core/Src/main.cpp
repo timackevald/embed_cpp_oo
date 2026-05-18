@@ -1,6 +1,6 @@
 #include "main.h"
 #include "led.hpp"
-#include "usart.h"
+#include "usart.hpp"
 
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -12,19 +12,13 @@ int main(void)
 	HAL_Init();
 	SystemClock_Config();
 	MX_GPIO_Init();
-	USART2_init();
+	Usart2::Usart2_hw_init();
 	LedMembank::hw_init();
 	setvbuf(stdout, NULL, _IONBF, 0);
-
-    /* Construct the bank — slots_used_ = 0, array default-constructed.
-	 * In C this was: led_membank_t bank; led_membank_ctor(&bank);
-	 * In C++ the constructor is called automatically on declaration. */
 	LedMembank bank;
 	bank.add(LedColor::Green, LedState::Off);
     Led *led = bank.get(0);
 
-	    /* Always null-check a pointer returned from  get() —
-	     * on bare metal a null dereference is a silent hard fault. */
 	if (led == nullptr)
 	{
 		Error_Handler();
@@ -44,8 +38,6 @@ int main(void)
             led->set_state(LedState::On);
         }
 
-        /* Cast enum class to uint8_t for printf
-         * enum class has no implici integer conversion so static_cast is required.*/
         printf("LED at idx 0 — color: %u  state: %u\r\n",
                static_cast<uint8_t>(color),
                static_cast<uint8_t>(state));
